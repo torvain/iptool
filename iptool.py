@@ -13,6 +13,9 @@ def broadcast_address(ip):
 def subnet_mask(ip):
     return ip.with_netmask.split('/')[1]
 
+def subnet_len(ip):
+    return ip.with_prefixlen.split('/')[1]
+
 def first_ip(ip):
     return str(list(ip.network.hosts())[0])
 
@@ -27,16 +30,18 @@ def main():
 
     arg_group.add_argument("--network-address", help="Show network address", action="store_true")
     arg_group.add_argument("--broadcast-address", help="Show broadcast address", action="store_true")
-    arg_group.add_argument("--subnet-mask", help="Show subnet mask", action="store_true")
+    arg_group.add_argument("--subnet-mask", help="Show subnet mask as x.x.x.x", action="store_true")
+    arg_group.add_argument("--subnet-len", help="Show subnet length as a digit (/24)", action="store_true")
     arg_group.add_argument("--first-ip", help="Show first IP address in the subnet", action="store_true")
     arg_group.add_argument("--last-ip", help="Show last IP address in the subnet", action="store_true")
     args = parser.parse_args()
 
-    functions = {"network_address" : network_address,
-                 "broadcast_address" : broadcast_address,
-                 "subnet_mask" : subnet_mask,
-                 "first_ip" : first_ip,
-                 "last_ip" : last_ip
+    functions = {'network_address' : network_address,
+                 'broadcast_address' : broadcast_address,
+                 'subnet_mask' : subnet_mask,
+                 'subnet_len' : subnet_len,
+                 'first_ip' : first_ip,
+                 'last_ip' : last_ip
                  }
 
     # put the args into a dict

@@ -12,6 +12,7 @@ class TestIP(unittest.TestCase):
                                'broadcast_address' : '192.168.3.255',
                                'network_address' : '192.168.3.0',
                                'subnet_mask' : '255.255.255.0',
+                               'subnet_len' : '24',
                                'first_ip' : '192.168.3.1' ,
                                'last_ip' : '192.168.3.254',
                               },
@@ -19,6 +20,7 @@ class TestIP(unittest.TestCase):
                                'broadcast_address' : '10.16.219.255',
                                'network_address' : '10.16.218.0',
                                'subnet_mask' : '255.255.254.0',
+                               'subnet_len' : '23',
                                'first_ip' : '10.16.218.1' ,
                                'last_ip' : '10.16.219.254',
                               }
@@ -35,6 +37,10 @@ class TestIP(unittest.TestCase):
     def test_subnet_mask(self):
         for ip in self.ips:
             self.assertEqual(iptool.subnet_mask(self.ips[ip]['address']), self.ips[ip]['subnet_mask'])
+
+    def test_subnet_len(self):
+        for ip in self.ips:
+            self.assertEqual(iptool.subnet_len(self.ips[ip]['address']), self.ips[ip]['subnet_len'])
 
     def test_first_address(self):
         for ip in self.ips:
